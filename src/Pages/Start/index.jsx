@@ -1,13 +1,15 @@
 import React from 'react'
 import { View, Text, Image, ScrollView, StyleSheet } from 'react-native'
-import DefaultButton from '../../Components/Common/DefaultButton'
 import { useNavigation } from '@react-navigation/native'
 
+import DefaultButton from '../../Components/Common/DefaultButton'
 import LifeStatus from '../../Components/Common/LifeStatus'
 
 export default function Start() {
+    const navigation = useNavigation()
+
     const handleNavAppExplanation = () => {
-        console.log('Testing click')
+        navigation.navigate('AppExplanation')
     }
 
     return (
