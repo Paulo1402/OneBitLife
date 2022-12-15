@@ -1,34 +1,44 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Text, TouchableOpacity, StyleSheet, View } from 'react-native'
 
 export default function ({ habit, frequency, habitArea, checkColor }) {
-    function handleEdit() {
-        console.log('Botão de editar clicado')
-    }
+  const navigation = useNavigation()
 
-    function handleCheck() {
-        console.log(`Botão de check do ${habitArea}`)
-    }
+  function handleEdit() {
+    navigation.navigate('HabitPage', {
+      create: false,
+      habit
+    })
+  }
 
-    return (
-        <TouchableOpacity
-            activeOpacity={0.9}
-            style={styles.button}
-            onPress={handleEdit}
-        >
-            <View style={styles.habitText}>
-                <Text style={styles.habitTitle}>{habit}</Text>
-                <Text style={styles.habitFrequency}>{frequency}</Text>
-            </View>
+  function handleCheck() {
+    console.log(`Clicando no check do ${habit?.habitArea}`)
+  }
 
-            <TouchableOpacity
-                style={[styles.check, { borderColor: borderColor }]}
-                onPress={handleCheck}
-            />
-        </TouchableOpacity>
-    )
+  const textNotification =
+    habit?.habitNotificationTime == null
+      ? `Sem notificação - ${habit?.habitFrequency}`
+      : `${habit?.habitNotificationTime} - ${habit?.habitFrequency}`
+
+  return (
+    <TouchableOpacity
+      activeOpacity={0.9}
+      style={styles.button}
+      onPress={handleEdit}
+    >
+      <View style={styles.habitText}>
+        <Text style={styles.habitTitle}>{habit?.habitName}</Text>
+        <Text style={styles.habitFrequency}>{textNotification}</Text>
+      </View>
+
+      <TouchableOpacity
+        style={[styles.check, { borderColor: borderColor }]}
+        onPress={handleCheck}
+      />
+    </TouchableOpacity>
+  )
 }
-
 
 const styles = StyleSheet.create({
   button: {
@@ -40,20 +50,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-between'
   },
   habitTitle: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   habitFrequency: {
-    color: 'white',
+    color: 'white'
   },
   check: {
     width: 20,
     height: 20,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 10
   }
-
 })
