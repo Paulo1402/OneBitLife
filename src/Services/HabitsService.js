@@ -1,10 +1,10 @@
 import db from '../Database'
 
-db.transaction(tx => {
-  tx.executeSql('DROP TABLE IF EXISTS habits;', [], (_, error) => {
-    console.log(error)
-  })
-})
+// db.transaction(tx => {
+//   tx.executeSql('DROP TABLE IF EXISTS habits;', [], (_, error) => {
+//     console.log(error)
+//   })
+// })
 
 db.transaction(tx => {
   tx.executeSql(
@@ -63,7 +63,7 @@ const updateHabit = obj => {
   return new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        'UPDATE habits SET habitArea=?, habitFrequency=?, habitHasNotification=?, habitNotificationFrequency=?, habitNotificationTime=? WHERE habitArea LIKE ?;',
+        'UPDATE habits SET habitName=?, habitFrequency=?, habitHasNotification=?, habitNotificationFrequency=?, habitNotificationTime=? WHERE habitArea LIKE ?;',
         [
           obj.habitName,
           obj.habitFrequency,
@@ -76,16 +76,15 @@ const updateHabit = obj => {
           if (rowsAffected > 0) resolve(rowsAffected)
           else reject('Error updating obj')
         },
-        (_, error) => resolve(error)
+        (_, error) => reject(error)
       )
     })
   })
 }
 
-
-const deleteByName = (habitArea) => {
+const deleteByName = habitArea => {
   return new Promise((resolve, reject) => {
-    db.transaction((tx) => {
+    db.transaction(tx => {
       tx.executeSql(
         'DELETE FROM habits WHERE habitArea=?;',
         [habitArea],
@@ -98,9 +97,26 @@ const deleteByName = (habitArea) => {
   })
 }
 
+const changeProgress = obj => {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        'UPDATE habits SET progressBar=? WHERE habitArea=?;',
+        [obj.progressBar, obj.habitArea],
+        (_, { rowsAffected }) => {
+          if (rowsAffected > 0) resolve(rowsAffected)
+          else reject('Error updating obj')
+        },
+        (_, error) => reject(error)
+      )
+    })
+  })
+}
+
 export default {
   createHabit,
   findByArea,
   updateHabit,
-  deleteByName
+  deleteByName,
+  changeProgress
 }

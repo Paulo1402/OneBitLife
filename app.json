@@ -1,10 +1,12 @@
 {
   "expo": {
-    "name": "onebitlife",
+    "name": "OneBitLife",
     "slug": "onebitlife",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "orientation": "portrait",
+    "icons": "./src/assets/icons/logo1.png"
   }
 }

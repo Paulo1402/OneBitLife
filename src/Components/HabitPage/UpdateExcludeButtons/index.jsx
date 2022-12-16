@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import HabitsServices from '../../../Services/HabitsService'
+import HabitsService from '../../../Services/HabitsService'
+import NotificationService from '../../../Services/NotificationService'
 
 export default function UpdateExcludeButtons({
   habitInput,

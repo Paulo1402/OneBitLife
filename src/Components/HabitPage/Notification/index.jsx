@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, Text, Switch, StyleSheet } from 'react-native'
 
 export default function Notification({
@@ -30,16 +30,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 5,
-    marginTop: 10,
+    marginTop: 10
   },
   titleDisabled: {
     color: '#BBBB',
     fontSize: 20,
-    marginRight: 10,
+    marginRight: 10
   },
   title: {
     color: 'white',
     fontSize: 20,
-    marginRight: 10,
+    marginRight: 10
   }
 })

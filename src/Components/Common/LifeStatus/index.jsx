@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 
 import Lottie from 'lottie-react-native'
+import AnimationService from '../../../Services/AnimationService'
 
-export default function LifeStatus() {
-    /*
+export default function LifeStatus({
+  mindHabit,
+  moneyHabit,
+  bodyHabit,
+  funHabit
+}) {
+  /*
   Status:
   100 - Máximo
   50 - Médio
@@ -13,50 +19,51 @@ export default function LifeStatus() {
   No robô, nós temos primeiros Felicidade e depois a Saúde xx-xx
   */
 
-    return (
-        <View style={styles.container}>
-            <Lottie
-                source={require('../../../assets/education/education-100.json')}
-                autoPlay
-                loop
-                style={styles.educacaoAnimacao}
-            />
-            <Lottie
-                source={require('../../../assets/money/money-100.json')}
-                autoPlay
-                loop
-                style={styles.financasAnimacao}
-            />
-            <Lottie
-                source={require('../../../assets/robot/robot-100-100.json')}
-                autoPlay
-                loop
-                style={styles.roboAnimacao}
-            />
-        </View>
+  const [mind, setMind] = useState()
+  const [money, setMoney] = useState()
+  const [robot, setRobot] = useState()
+
+  useEffect(() => {
+    AnimationService.AnimationStatus(
+      mindHabit?.progressBar,
+      moneyHabit?.progressBar,
+      bodyHabit?.progressBar,
+      funHabit?.progressBar,
+      setMind,
+      setMoney,
+      setRobot
     )
+  }, [mindHabit, moneyHabit, bodyHabit, funHabit])
+
+  return (
+    <View style={styles.container}>
+      <Lottie source={mind} autoPlay loop style={styles.educacaoAnimacao} />
+      <Lottie source={money} autoPlay loop style={styles.financasAnimacao} />
+      <Lottie source={robot} autoPlay loop style={styles.roboAnimacao} />
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     width: 300,
-    height: 300,
+    height: 300
   },
   roboAnimacao: {
     width: 190,
     marginTop: 30,
-    marginLeft: 25,
+    marginLeft: 25
   },
   educacaoAnimacao: {
     width: 100,
     marginTop: 50,
     marginLeft: 5,
-    position: 'absolute',
+    position: 'absolute'
   },
   financasAnimacao: {
     width: 100,
     marginTop: 50,
     marginLeft: 95,
-    position: 'absolute',
+    position: 'absolute'
   }
 })

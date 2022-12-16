@@ -8,8 +8,12 @@ import ChangeNavigationService from '../../Services/ChangeNavigationService'
 export default function AppExplanation() {
   const navigation = useNavigation()
   const [showHome, setShowHome] = useState('false')
+
   const startDate = new Date()
-  const appStartData = `${startDate.getFullYear()}-${startDate.getMonth()}-${startDate.getDate()}`
+  const month = `${startDate.getMonth() + 1}`.padStart(2, '0')
+  const day = `${startDate.getDate()}`.padStart(2, '0')
+
+  const appStartData = `${startDate.getFullYear()}-${month}-${day}`
 
   function handleNavHome() {
     navigation.navigate('Home')
@@ -17,11 +21,11 @@ export default function AppExplanation() {
 
   function handleSetShowHome() {
     if (showHome !== 'true') {
-        ChangeNavigationService.setShowHome({ showHome: 'true', appStartData })
-            .then(() => console.log(`Sucesso! ${showHome} ${appStartData}`))
-            .catch((err) => console.log(err))
-        setShowHome('true')
-        handleNavHome()
+      ChangeNavigationService.setShowHome({ showHome: 'true', appStartData })
+        .then(() => console.log(`Sucesso! ${showHome} ${appStartData}`))
+        .catch(err => console.log(err))
+      setShowHome('true')
+      handleNavHome()
     }
   }
 
