@@ -1,10 +1,10 @@
 import db from '../Database'
 
-// db.transaction(tx => {
-//   tx.executeSql('DROP TABLE IF EXISTS change_navigation;', [], (_, error) => {
-//     console.log(error)
-//   })
-// })
+db.transaction(tx => {
+  tx.executeSql('DROP TABLE IF EXISTS change_navigation;', [], (_, error) => {
+    console.log(error)
+  })
+})
 
 db.transaction(tx => {
   tx.executeSql(
